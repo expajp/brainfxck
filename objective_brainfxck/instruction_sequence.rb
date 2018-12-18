@@ -2,6 +2,8 @@ require './instruction_factory'
 
 # 命令列オブジェクト
 class InstructionSequence
+	class ProgramError < StandardError; end
+
 	INSTRUCTIONS = ['>','<','+','-','.',',','[',']']
 
 	def initialize(src)
@@ -39,16 +41,11 @@ class InstructionSequence
 	# ']'に対する処理
 	def end_block(val)
 		if val == 0
-			raise ProgramError, 'スタックに値が入っていません' if @stack.empty?
+			raise BrainFxcks::ProgramError, 'スタックに値が入っていません' if @stack.empty?
 			@stack.pop
 		else
 			jump_to_startblock
 		end
-	end
-
-	def view
-		p "stack: #{@stack}"
-		p "pc: #{@pc}/#{@seq.length}"
 	end
 
 	private
@@ -65,14 +62,14 @@ class InstructionSequence
 			elsif @seq[counter] == '['
 				st.push(counter)
 			elsif eof?
-				raise ProgramError, '対応する]がありません'
+				raise BrainFxcks::ProgramError, '対応する]がありません'
 			end
 		end
 		@pc = counter + 1
 	end
 
 	def jump_to_startblock
-		raise ProgramError, 'スタックに値が入っていません' if @stack.empty?
+		raise BrainFxcks::ProgramError, 'スタックに値が入っていません' if @stack.empty?
 		@pc = @stack.last
 	end
 end

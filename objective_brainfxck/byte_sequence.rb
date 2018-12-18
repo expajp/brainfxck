@@ -1,4 +1,6 @@
 class ByteSequence
+	class ProgramError < StandardError; end
+
 	def initialize
 		@seq = [0]
 		@stack = Array.new
@@ -12,7 +14,7 @@ class ByteSequence
 
 	# ポインタをデクリメントする
 	def left
-		raise ProgramError, '0未満のポインタを指定することはできません' if @p <= 0
+		raise BrainFxcks::ProgramError, '0未満のポインタを指定することはできません' if @p <= 0
 		@p -= 1
 	end
 
@@ -25,7 +27,7 @@ class ByteSequence
 	# 値をデクリメントする
 	def decrement
 		@seq[@p] = 0 if @seq[@p].nil?
-		raise ProgramError, '0未満のデータを持つことはできません' if @seq[@p] == 0
+		raise BrainFxcks::ProgramError, '0未満のデータを持つことはできません' if @seq[@p] == 0
 		@seq[@p] -= 1
 	end
 
@@ -42,10 +44,5 @@ class ByteSequence
 	# 現在位置の値を文字として取得
 	def val_by_char
 		val.chr('UTF-8')
-	end
-
-	def view
-		p "pointer: #{@p}"
-		p "bytes: #{@seq}"
 	end
 end

@@ -1,13 +1,15 @@
 # 実行方法
 # $ ruby brainfxck.rb <../sample_codes/hello.bf
 
+module BrainFxcks
+	class ProgramError < StandardError; end
+end
+
 require './instructions'
 require './instruction_sequence'
 require './byte_sequence'
 
 class BrainFxck
-	class ProgramError < StandardError; end
-
 	def initialize(src)
 		@inst_seq = InstructionSequence.new(src)
 		@byte_seq = ByteSequence.new
@@ -27,7 +29,7 @@ end
 
 begin 
   BrainFxck.new($stdin.read).run
-rescue BrainFxck::ProgramError => e
-  puts e.message
+rescue BrainFxcks::ProgramError => e
+	puts e.message
   puts "プログラムの実行に失敗しました"
 end
