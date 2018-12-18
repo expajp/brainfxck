@@ -7,14 +7,13 @@ class InstructionSequence
 	def initialize(src)
 		scanner = Regexp.new(INSTRUCTIONS.map{ |c| Regexp.escape(c) }.join('|'))
 		@seq = src.scan(scanner).flatten
-		@factory = InstructionFatory.new
 		@stack = Array.new
 		@pc = 0
 	end
 
-	# 次の命令を取り出してfactoryに渡し、命令オブジェクトを返す
+	# 次の命令を取り出して返す
 	def fetch
-		@factory.create(@seq[@pc])
+		@seq[@pc]
 	end
 
 	# pcを進める

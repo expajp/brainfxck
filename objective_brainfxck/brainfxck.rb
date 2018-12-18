@@ -16,10 +16,8 @@ class BrainFxck
 	def run
 		loop do
 			inst = @inst_seq.fetch
-			@inst_seq, @byte_seq = inst.run(@inst_seq, @byte_seq)
-			# for debug
-			# @inst_seq.view
-			# @byte_seq.view
+			inst_obj = InstructionFatory.create(inst, @inst_seq, @byte_seq)
+			@inst_seq, @byte_seq = inst_obj.run
 			@inst_seq.next_inst
 			break if @inst_seq.eof?
 		end

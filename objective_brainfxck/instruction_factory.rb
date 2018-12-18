@@ -1,23 +1,23 @@
 # 命令オブジェクト生成器
 class InstructionFatory
-	def create(inst)
+	def self.create(inst, inst_seq, byte_seq)
 		ret = case inst
 			when '>'
-				ShiftToRight.new
+				ShiftToRight.new(inst_seq, byte_seq)
 			when '<'
-				ShiftToLeft.new
+				ShiftToLeft.new(inst_seq, byte_seq)
 			when '+'
-				Increment.new
+				Increment.new(inst_seq, byte_seq)
 			when '-'
-				Decrement.new
+				Decrement.new(inst_seq, byte_seq)
 			when '.'
-				Output.new
+				Output.new(inst_seq, byte_seq)
 			when ','
-				Input.new
+				Input.new(inst_seq, byte_seq)
 			when '['
-				StartBlock.new
+				StartBlock.new(inst_seq, byte_seq)
 			when ']'
-				EndBlock.new
+				EndBlock.new(inst_seq, byte_seq)
 		end
 		ret
 	end
