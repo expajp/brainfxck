@@ -26,7 +26,7 @@ class ShiftToLeft < AbstructInstruction
 end
 class Increment < AbstructInstruction
 	def process
-		@byte_seq.increment
+		# TODO
 	end
 end
 class Decrement < AbstructInstruction
