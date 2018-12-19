@@ -16,5 +16,6 @@ $ ruby procedural_brainfxck.rb <sample_codes/hello.bf
 
 ### オブジェクト指向
 ```
-$ ruby objective_brainfxck/brainfxck.rb <../sample_codes/hello.bf
+$ cd objective_brainfxck
+$ ruby brainfxck.rb <../sample_codes/hello.bf
 ```
