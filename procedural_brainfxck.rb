@@ -37,7 +37,8 @@ begin
 				byte_pointer -= 1
 			when '+'
 				# バイト列をインクリメント
-				# TODO
+				byte_seq[byte_pointer] = 0 if byte_seq[byte_pointer].nil?
+				byte_seq[byte_pointer] += 1
 			when '-'
 				# バイト列をデクリメント
 				byte_seq[byte_pointer] = 0 if byte_seq[byte_pointer].nil?
