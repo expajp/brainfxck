@@ -1,9 +1,3 @@
-
-# 実行方法
-# $ ruby brainfxck.rb <../sample_codes/hello.bf
-
-$:.unshift File.dirname(__FILE__)
-
 module BrainFxcks
 	class ProgramError < StandardError; end
 end
@@ -28,11 +22,4 @@ class BrainFxck
 		end
 		print "\n"
 	end
-end
-
-begin 
-  BrainFxck.new($stdin.read).run
-rescue BrainFxcks::ProgramError => e
-	puts e.message
-  puts "プログラムの実行に失敗しました"
 end
