@@ -1,4 +1,5 @@
 require './brainfxck.rb'
+require 'prime'
 
 RSpec.describe BrainFxck do
   describe 'run sample codes' do
@@ -13,7 +14,7 @@ RSpec.describe BrainFxck do
       let(:source_path){ '../sample_codes/hello.bf' }
 
       it 'return Hello World!' do
-        expect($stdout.string).to eq "Hello World!\n\n"
+        expect($stdout.string).to eq "Hello World!\n"
       end
     end
 
@@ -22,6 +23,15 @@ RSpec.describe BrainFxck do
 
       it 'display fizzbuzz' do
         answer = (1..100).to_a.map{ |n| n%3 == 0 ? (n%5 == 0 ? 'FizzBuzz' : 'Fizz') : (n%5 == 0 ? 'Buzz' : n.to_s) }
+        expect($stdout.string).to eq answer.join(' ')
+      end
+    end
+
+    describe 'display primes' do
+      let(:source_path){ '../sample_codes/pucci.bf' }
+
+      it 'display primes' do
+        answer = (1..100).to_a.select{ |n| n.prime? }
         expect($stdout.string).to eq answer.join(' ')
       end
     end

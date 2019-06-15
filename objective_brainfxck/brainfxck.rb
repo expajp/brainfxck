@@ -20,6 +20,5 @@ class BrainFxck
 			@inst_seq.next_inst
 			break if @inst_seq.eof?
 		end
-		print "\n"
 	end
 end
