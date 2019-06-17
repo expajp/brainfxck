@@ -38,6 +38,7 @@ class ByteSequence
 
 	# 現在位置の値を上書き
 	def val=(v)
+		raise BrainFxcks::ProgramError, '0未満のデータを持つことはできません' if v < 0
 		@seq[@p] = v
 	end
 
