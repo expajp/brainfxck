@@ -18,6 +18,8 @@ class InstructionFatory
 				StartBlock.new(inst_seq, byte_seq)
 			when ']'
 				EndBlock.new(inst_seq, byte_seq)
+			else
+				raise BrainFxcks::ProgramError, '既定の命令以外が渡されました'
 		end
 		ret
 	end
