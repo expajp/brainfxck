@@ -15,7 +15,9 @@ class InstructionSequence
 
 	# 次の命令を取り出して返す
 	def fetch
-		@seq[@pc]
+		inst = @seq[@pc]
+		raise BrainFxcks::ProgramError, 'プログラムカウンタが命令列サイズを超過しています' if inst.nil?
+		inst
 	end
 
 	# pcを進める
