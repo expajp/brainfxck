@@ -21,7 +21,7 @@ class InstructionSequence
 	end
 
 	# pcを進める
-	def next_inst
+	def next_inst		
 		@pc += 1
 	end
 
@@ -33,41 +33,37 @@ class InstructionSequence
 
 	# '[' に対する処理
 	def start_block(val)
-		if val == 0
-			jump_to_endblock
-		else
-			@stack.push(@pc)
-		end
+		raise BrainFxcks::ProgramError, '現在の命令は"["ではありません' if @seq[@pc] != '['
+		jump_to_endblock and return if val == 0
+		@stack.push(@pc)
 	end
-
+	
 	# ']'に対する処理
 	def end_block(val)
+		raise BrainFxcks::ProgramError, '現在の命令は"]"ではありません' if @seq[@pc] != ']'
 		if val == 0
 			raise BrainFxcks::ProgramError, 'スタックに値が入っていません' if @stack.empty?
-			@stack.pop
-		else
-			jump_to_startblock
+			@stack.pop and return
 		end
+		jump_to_startblock
 	end
 
 	private
 
 	def jump_to_endblock
-		counter = @pc
 		st = []
 		loop do
-			counter += 1
-			if st.empty? && @seq[counter] == ']'
+			@pc += 1
+			if st.empty? && @seq[@pc] == ']'
 				break
-			elsif @seq[counter] == ']'
+			elsif @seq[@pc] == ']'
 				st.pop
-			elsif @seq[counter] == '['
-				st.push(counter)
+			elsif @seq[@pc] == '['
+				st.push(@pc)
 			elsif eof?
 				raise BrainFxcks::ProgramError, '対応する]がありません'
 			end
 		end
-		@pc = counter + 1
 	end
 
 	def jump_to_startblock
