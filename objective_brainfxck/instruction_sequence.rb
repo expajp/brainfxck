@@ -34,16 +34,20 @@ class InstructionSequence
 	# '[' に対する処理
 	def start_block(val)
 		raise BrainFxcks::ProgramError, '現在の命令は"["ではありません' if @seq[@pc] != '['
-		jump_to_endblock and return if val == 0
+		if val == 0 || val.nil?
+			jump_to_endblock
+			return
+		end
 		@stack.push(@pc)
 	end
 	
 	# ']'に対する処理
 	def end_block(val)
 		raise BrainFxcks::ProgramError, '現在の命令は"]"ではありません' if @seq[@pc] != ']'
-		if val == 0
+		if val == 0 || val.nil?
 			raise BrainFxcks::ProgramError, 'スタックに値が入っていません' if @stack.empty?
-			@stack.pop and return
+			@stack.pop
+			return
 		end
 		jump_to_startblock
 	end

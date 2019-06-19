@@ -22,8 +22,8 @@ RSpec.describe BrainFxck do
       let(:source_path){ '../sample_codes/fizzbuzz.bf' }
 
       it 'display fizzbuzz' do
-        answer = (1..100).to_a.map{ |n| n%3 == 0 ? (n%5 == 0 ? 'FizzBuzz' : 'Fizz') : (n%5 == 0 ? 'Buzz' : n.to_s) }
-        expect($stdout.string).to eq answer.join(' ')
+        answer = (1..100).to_a.map{ |n| "\u0001" + (n%3 == 0 ? (n%5 == 0 ? 'FizzBuzz' : 'Fizz') : (n%5 == 0 ? 'Buzz' : n.to_s)) }
+        expect($stdout.string).to eq answer.join(' ') + ' '
       end
     end
 
