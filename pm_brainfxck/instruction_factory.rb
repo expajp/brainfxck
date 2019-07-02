@@ -2,24 +2,22 @@
 class InstructionFatory
 	def self.create(inst, inst_seq, byte_seq)
 		ret = case inst
-			when '>'
+			in '>'
 				ShiftToRight.new(inst_seq, byte_seq)
-			when '<'
+			in '<'
 				ShiftToLeft.new(inst_seq, byte_seq)
-			when '+'
+			in '+'
 				Increment.new(inst_seq, byte_seq)
-			when '-'
+			in '-'
 				Decrement.new(inst_seq, byte_seq)
-			when '.'
+			in '.'
 				Output.new(inst_seq, byte_seq)
-			when ','
+			in ','
 				Input.new(inst_seq, byte_seq)
-			when '['
+			in '['
 				StartBlock.new(inst_seq, byte_seq)
-			when ']'
+			in ']'
 				EndBlock.new(inst_seq, byte_seq)
-			else
-				raise BrainFxcks::ProgramError, '既定の命令以外が渡されました'
 		end
 		ret
 	end
